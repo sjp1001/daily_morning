@@ -8,6 +8,7 @@ import random
 
 today = datetime.now()
 start_date = os.environ['START_DATE']
+neibour_date = os.environ['NEIBOUR_DATE']
 city = os.environ['CITY']
 birthday = os.environ['BIRTHDAY']
 
@@ -27,6 +28,10 @@ def get_weather():
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
+  return delta.days
+
+def get_neibour():
+  delta = today - datetime.strptime(neibour_date, "%Y-%m-%d")
   return delta.days
 
 def get_birthday():
@@ -49,7 +54,7 @@ client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
 wea, temperature = get_weather()
-data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
+data = {"weather":{"value":wea},"temperature":{"value":temperature},"neibour_days":{"value":get_neibour()},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
 res = wm.send_template(user_id, template_id, data)
 res_s = wm.send_template(user_id_s, template_id, data)
 # print(res)
