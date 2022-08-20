@@ -32,7 +32,7 @@ def get_count():
 
 def get_neibour():
   delta = today - datetime.strptime(neibour_date, "%Y-%m-%d")
-  return 31 - delta.days
+  return 30 - delta.days
 
 def get_birthday():
   next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
